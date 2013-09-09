@@ -1,9 +1,18 @@
 class ProductsController < ApplicationController
   
+  def index
+    @products = Product.all
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @products }
+    end
+  end
+
   def create
     @product = Product.new(product_params)
-      if @photo.save
-      redirect_to @photo
+      if @product.save
+      redirect_to @product
       else
       render :new
       end
@@ -37,7 +46,7 @@ class ProductsController < ApplicationController
   end
 
  def product_params
-    params.require(:product).permit(:price, :name, :description)
+    params.require(:product).permit(:price_in_cents, :name, :description)
  end
 
 end
